@@ -1,4 +1,5 @@
 import EditTask from "./EditTask";
+import DeleteTask from "./DeleteTask";
 
 export default function ToDo({ task, index, taskList, setTaskList }) {
   return (
@@ -15,9 +16,12 @@ export default function ToDo({ task, index, taskList, setTaskList }) {
         </div>
         <p className="text-lg py-2">{task.taskDescription}</p>
         <div className="flex justify-center w-full">
-          <button className="bg-red-500 text-white text-sm uppercase font-semibold mb-1 py-1 px-3 rounded-lg">
-            Delete
-          </button>
+          <DeleteTask
+            task={task}
+            index={index}
+            taskList={taskList}
+            setTaskList={setTaskList}
+          />
         </div>
       </div>
     </>

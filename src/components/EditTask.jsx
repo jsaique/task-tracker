@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function EditTask({ task, index, taskList, setTaskList }) {
+export default function EditTask({ task, taskList, setTaskList }) {
   const [editModal, setEditModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
