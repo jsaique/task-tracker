@@ -1,6 +1,10 @@
+import { useState } from "react";
 import AddTask from "./components/AddTask";
 
 function App() {
+  const [taskList, setTaskList] = useState([]);
+  console.log(taskList);
+
   return (
     <>
       <header className="inline-block pt-4 pl-6">
@@ -11,9 +15,15 @@ function App() {
       </header>
       <div className="flex flex-row items-center pb-4 pl-6">
         <p className="">Click</p>
-        <AddTask />
+        <AddTask taskList={taskList} setTaskList={setTaskList} />
         <p>to add a task</p>
       </div>
+      {taskList.map((task, i) => (
+        <>
+          <p>{task.projectName}</p>
+          <p>{task.taskDescription}</p>
+        </>
+      ))}
     </>
   );
 }
