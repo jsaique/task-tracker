@@ -1,13 +1,19 @@
-import logo from "./logo.svg";
+import AddTask from "./components/AddTask";
 
 function App() {
   return (
     <>
-      <h1 className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-rose-600 inline-block">
-        Task Tracker
-      </h1>
-      <p>Hello there!</p>
-      <p>Click +New to add a task</p>
+      <header className="inline-block pt-4 pl-6">
+        <h1 className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-rose-600 mb-4">
+          Task Tracker
+        </h1>
+        <p className="">Hello there!</p>
+      </header>
+      <div className="flex flex-row items-center pb-4 pl-6">
+        <p className="">Click</p>
+        <AddTask />
+        <p>to add a task</p>
+      </div>
     </>
   );
 }
