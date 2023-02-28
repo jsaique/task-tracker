@@ -24,19 +24,16 @@ function App() {
           To Do:
         </h2>
         {taskList
-          .slice(0)
-          .reverse()
+          // .slice(0)
+          // .reverse()
           .map((task, i) => (
-            <>
-              <ToDo
-                // new Date as a key will fix the reversing of indexes
-                key={new Date().getTime()}
-                task={task}
-                index={i}
-                taskList={taskList}
-                setTaskList={setTaskList}
-              />
-            </>
+            <ToDo
+              key={i}
+              task={task}
+              index={i}
+              taskList={taskList}
+              setTaskList={setTaskList}
+            />
           ))}
       </div>
     </>

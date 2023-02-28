@@ -35,7 +35,7 @@ export default function EditTask({ task, taskList, setTaskList }) {
     <>
       <button
         onClick={() => setEditModal(true)}
-        className="bg-stone-400 text-white text-sm uppercase font-semibold py-1 px-3 rounded-lg"
+        className="bg-stone-400 text-white text-sm uppercase font-semibold py-1 px-3 rounded-lg hover:bg-stone-300 hover:text-gray-500 duration-300"
       >
         Edit
       </button>

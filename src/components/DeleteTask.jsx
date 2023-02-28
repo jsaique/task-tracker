@@ -12,7 +12,7 @@ export default function DeleteTask({ task, taskList, setTaskList }) {
     <>
       <button
         onClick={handleDelete}
-        className="bg-red-500 text-white text-sm uppercase font-semibold mb-1 py-1 px-3 rounded-lg"
+        className="bg-red-500 text-white text-sm uppercase font-semibold mb-1 py-1 px-3 rounded-lg hover:bg-red-400 hover:text-gray-800 duration-300"
       >
         Delete
       </button>

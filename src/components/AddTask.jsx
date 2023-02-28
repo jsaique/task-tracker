@@ -4,29 +4,44 @@ export default function AddTask({ taskList, setTaskList }) {
   const [addModal, setAddModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInput = (e) => {
     const { name, value } = e.target;
     // If name the same as projectName we are setting the value of the project name input
-    if (name === "projectName") setProjectName(value);
+    if (name === "projectName") {
+      setProjectName(value);
+      setErrorMessage("");
+    }
+    if (name === "projectName" && value === "") {
+      setErrorMessage("Project name is required");
+    }
     if (name === "taskDescription") setTaskDescription(value);
   };
 
   const handleAdd = (e) => {
     e.preventDefault();
-    setTaskList([...taskList, { projectName, taskDescription }]);
-    // Closing the modal after adding the task
-    setAddModal(false);
-    // Setting both input to empty
-    setProjectName("");
-    setTaskDescription("");
+    if (!projectName) {
+      setErrorMessage("Project name is required");
+    } else {
+      let timestamp = new Date().getTime();
+      setTaskList([
+        ...taskList,
+        { projectName, taskDescription, timestamp: timestamp },
+      ]);
+      // Closing the modal after adding the task
+      setAddModal(false);
+      // Setting both input to empty
+      setProjectName("");
+      setTaskDescription("");
+    }
   };
 
   return (
     <>
       <button
         onClick={() => setAddModal(true)}
-        className="bg-amber-600 text-white text-sm uppercase font-semibold py-1 px-2 mx-1.5 rounded-lg hover:opacity-70"
+        className="bg-amber-600 text-white text-sm uppercase font-semibold py-1 px-2 mx-1.5 rounded-lg hover:opacity-70 duration-300"
         type="button"
       >
         + New
@@ -62,6 +77,9 @@ export default function AddTask({ taskList, setTaskList }) {
                     placeholder="Project name"
                     required
                   />
+                  <p className="text-red-600 text-center mt-2 mb-5">
+                    {errorMessage}
+                  </p>
                 </div>
                 <div>
                   <label
@@ -84,7 +102,7 @@ export default function AddTask({ taskList, setTaskList }) {
               <div className="flex justify-end p-6 border-t border-stone-200">
                 <button
                   onClick={handleAdd}
-                  className="bg-amber-600 text-white text-sm font-semibold uppercase py-2 px-3 rounded-lg hover:opacity-70"
+                  className="bg-amber-600 text-white text-sm font-semibold uppercase py-2 px-3 rounded-lg hover:opacity-70 duration-300"
                 >
                   Add Task
                 </button>
