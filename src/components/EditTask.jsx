@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function AddTask({ taskList, setTaskList }) {
-  const [addModal, setAddModal] = useState(false);
+export default function EditTask({ task, index, taskList, setTaskList }) {
+  const [editModal, setEditModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
+
+  // Show the original project name and task description in the edit box
+  useEffect(() => {
+    setProjectName(task.projectName);
+    setTaskDescription(task.taskDescription);
+  }, []);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -12,33 +18,35 @@ export default function AddTask({ taskList, setTaskList }) {
     if (name === "taskDescription") setTaskDescription(value);
   };
 
-  const handleAdd = (e) => {
+  // Removing the pre-existing task adding the updated task
+  const handleUpdate = (e) => {
     e.preventDefault();
+    // Get the index by using the indexOf method
+    let taskIndex = taskList.indexOf(task);
+    // Using splice to remove the pre-existing task (1st parameter uses the index to identify where you want to start removing items, 1= specify how many items we want to remove)
+    taskList.splice(taskIndex, 1);
+
     setTaskList([...taskList, { projectName, taskDescription }]);
     // Closing the modal after adding the task
-    setAddModal(false);
-    // Setting both input to empty
-    setProjectName("");
-    setTaskDescription("");
+    setEditModal(false);
   };
 
   return (
     <>
       <button
-        onClick={() => setAddModal(true)}
-        className="bg-amber-600 text-white text-sm uppercase font-semibold py-1 px-2 mx-1.5 rounded-lg hover:opacity-70"
-        type="button"
+        onClick={() => setEditModal(true)}
+        className="bg-stone-400 text-white text-sm uppercase font-semibold py-1 px-3 rounded-lg"
       >
-        + New
+        Edit
       </button>
-      {addModal ? (
+      {editModal ? (
         <>
           <div className="flex items-center justify-center overflow-x-hidden overflow-y-auto fixed inset-0 z-100">
             <div className="w-9/12 max-w-lg bg-white border rounded-lg shadow-md">
               <div className="flex justify-between p-5 border-b border-stone-200">
-                <h3 className="text-3xl">Add New Task</h3>
+                <h3 className="text-3xl">Edit Task</h3>
                 <button
-                  onClick={() => setAddModal(false)}
+                  onClick={() => setEditModal(false)}
                   className="px-3 pb-1 text-gray-400 float-right text-3xl leading-none font-semibold block hover:text-gray-800 hover:bg-red-500 rounded-md"
                 >
                   x
@@ -83,10 +91,10 @@ export default function AddTask({ taskList, setTaskList }) {
               </form>
               <div className="flex justify-end p-6 border-t border-stone-200">
                 <button
-                  onClick={handleAdd}
+                  onClick={handleUpdate}
                   className="bg-amber-600 text-white text-sm font-semibold uppercase py-2 px-3 rounded-lg hover:opacity-70"
                 >
-                  Add Task
+                  Update
                 </button>
               </div>
             </div>

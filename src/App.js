@@ -23,11 +23,21 @@ function App() {
         <h2 className="text-xl font-semibold w-3/4 max-w-lg my-4 py-2 px-4 bg-stone-300 ml-6">
           To Do:
         </h2>
-        {taskList.map((task, i) => (
-          <>
-            <ToDo key={i} task={task} />
-          </>
-        ))}
+        {taskList
+          .slice(0)
+          .reverse()
+          .map((task, i) => (
+            <>
+              <ToDo
+                // new Date as a key will fix the reversing of indexes
+                key={new Date().getTime()}
+                task={task}
+                index={i}
+                taskList={taskList}
+                setTaskList={setTaskList}
+              />
+            </>
+          ))}
       </div>
     </>
   );
