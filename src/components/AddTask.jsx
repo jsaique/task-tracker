@@ -24,7 +24,18 @@ export default function AddTask({ taskList, setTaskList }) {
     if (!projectName) {
       setErrorMessage("Project name is required");
     } else {
-      let timestamp = new Date().getTime();
+      let timestamp = new Date();
+      let tempList = taskList;
+      tempList.push({
+        projectName,
+        taskDescription,
+        timestamp: timestamp,
+        duration: 0,
+      });
+      // Putting the data inside the local storage
+      localStorage.setItem("taskList", JSON.stringify(tempList));
+      // Refreshing the window
+      window.location.reload();
       setTaskList([
         ...taskList,
         { projectName, taskDescription, timestamp: timestamp },

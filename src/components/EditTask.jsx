@@ -24,8 +24,14 @@ export default function EditTask({ task, taskList, setTaskList }) {
     // Get the index by using the indexOf method
     let taskIndex = taskList.indexOf(task);
     // Using splice to remove the pre-existing task (1st parameter uses the index to identify where you want to start removing items, 1= specify how many items we want to remove)
-    taskList.splice(taskIndex, 1);
-
+    taskList.splice(taskIndex, 1, {
+      projectName: projectName,
+      taskDescription: taskDescription,
+      timestamp: task.timestamp,
+      duration: task.duration,
+    });
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    window.location.reload();
     setTaskList([...taskList, { projectName, taskDescription }]);
     // Closing the modal after adding the task
     setEditModal(false);

@@ -3,7 +3,7 @@ import EditTask from "./EditTask";
 import DeleteTask from "./DeleteTask";
 
 export default function ToDo({ task, index, taskList, setTaskList }) {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(task.duration);
   const [running, setRunning] = useState(false);
 
   useEffect(() => {
@@ -20,6 +20,22 @@ export default function ToDo({ task, index, taskList, setTaskList }) {
     return () => clearInterval(interval);
     // Takes an array of dependencies [running], which means that it will run whenever the value of running changes.
   }, [running]);
+
+  // Tapping to local storage to update the duration
+  const handleStop = () => {
+    setRunning(false);
+
+    let taskIndex = taskList.indexOf(task);
+    taskList.splice(taskIndex, 1, {
+      projectName: task.projectName,
+      taskDescription: task.taskDescription,
+      timestamp: task.timestamp,
+      // Setting the duration to "time" so we can use it as the ^ default value in our useState
+      duration: time,
+    });
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    window.location.reload();
+  };
 
   return (
     <>
@@ -46,9 +62,7 @@ export default function ToDo({ task, index, taskList, setTaskList }) {
           <div className="w-1/3 max-w-sm flex flex-row justify-evenly gap-2">
             {running ? (
               <button
-                onClick={() => {
-                  setRunning(false);
-                }}
+                onClick={handleStop}
                 className="border rounded-lg py-1 px-3"
               >
                 Stop

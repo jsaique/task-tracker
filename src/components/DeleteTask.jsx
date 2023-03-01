@@ -3,9 +3,11 @@ export default function DeleteTask({ task, taskList, setTaskList }) {
     // Getting the index of the task to delete
     let removeIndex = taskList.indexOf(task);
     taskList.splice(removeIndex, 1);
-    setTaskList((currentTask) =>
-      currentTask.filter((todo) => todo.id !== itemID)
-    );
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    window.location.reload();
+    // setTaskList((currentTask) =>
+    //   currentTask.filter((todo) => todo.id !== itemID)
+    // );
   };
 
   return (

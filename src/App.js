@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import ToDo from "./components/ToDo";
 
 function App() {
   const [taskList, setTaskList] = useState([]);
   console.log(taskList);
+
+  // Gettitng the data from the local storage
+  useEffect(() => {
+    let array = localStorage.getItem("taskList");
+
+    if (array) {
+      // Parsing the data back to JS object
+      setTaskList(JSON.parse(array));
+    }
+  }, []);
 
   return (
     <>
